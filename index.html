@@ -2,27 +2,398 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FocusPilot - Legal & Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FocusPilot — Pomodoro timer, session planning, ambient sounds, and daily focus feed for iPhone. Productivity &amp; focus for work." />
+  <meta name="theme-color" content="#0d0d14" />
+  <title>FocusPilot — Productivity &amp; Focus for Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; margin:0; background:#0f172a; color:#e2e8f0; text-align:center; }
-    header { padding:60px 20px; background:#111827; }
-    a { color:#60a5fa; display:block; margin:12px; font-size:18px; text-decoration:none; }
-    .container { padding:40px; }
+    :root {
+      --bg: #0d0d14;
+      --bg-elevated: #16161f;
+      --text: #f5f5f7;
+      --text-muted: #9898a6;
+      --orange: #ff8c1a;
+      --orange-deep: #ff6b1a;
+      --orange-glow: rgba(255, 140, 26, 0.22);
+      --border: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --max: 1080px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .gradient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--orange-glow), transparent),
+        linear-gradient(180deg, #000 0%, var(--bg) 45%);
+      pointer-events: none;
+    }
+    a { color: var(--orange); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(13, 13, 20, 0.85);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo:hover { text-decoration: none; }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--orange-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    nav a {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-left: 24px;
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--text); text-decoration: none; }
+    .hero { padding: 72px 0 56px; text-align: center; }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: var(--orange-glow);
+      border: 1px solid rgba(255, 140, 26, 0.35);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.25rem, 6vw, 3.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero .subtitle {
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 36px;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 28px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(255, 107, 26, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover {
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255, 107, 26, 0.45);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      background: var(--bg-elevated);
+    }
+    .btn-secondary:hover {
+      color: var(--text);
+      text-decoration: none;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .hero-visual {
+      margin-top: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .timer-mock {
+      width: 220px;
+      height: 220px;
+      position: relative;
+    }
+    .timer-ring {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 10px solid rgba(255, 255, 255, 0.1);
+    }
+    .timer-progress {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from -90deg, var(--orange) 0deg 252deg, transparent 252deg 360deg);
+      mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 12px), #000 calc(100% - 11px));
+    }
+    .timer-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .timer-time {
+      font-size: 2.5rem;
+      font-weight: 300;
+      font-variant-numeric: tabular-nums;
+    }
+    .timer-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+    .section { padding: 64px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(255, 140, 26, 0.25); }
+    .feature-icon { font-size: 1.75rem; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-muted); }
+    .pro-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .pro-strip {
+      background: linear-gradient(135deg, rgba(255, 140, 26, 0.12), rgba(255, 107, 26, 0.06));
+      border: 1px solid rgba(255, 140, 26, 0.2);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .pro-strip h3 { font-size: 1.25rem; margin-bottom: 8px; }
+    .pro-strip p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .support {
+      text-align: center;
+      padding: 48px 0 72px;
+      border-top: 1px solid var(--border);
+    }
+    .support h2 { font-size: 1.35rem; margin-bottom: 12px; }
+    .support p { color: var(--text-muted); margin-bottom: 20px; }
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    footer .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    footer .links a { color: var(--text-muted); text-decoration: none; }
+    footer .links a:hover { color: var(--orange); text-decoration: none; }
+    @media (max-width: 640px) {
+      nav { display: none; }
+      .hero { padding-top: 48px; }
+    }
   </style>
 </head>
 <body>
+  <div class="gradient-bg" aria-hidden="true"></div>
 
-<header>
-  <h1>FocusPilot</h1>
-  <p>Legal & Support Center</p>
-</header>
+  <header>
+    <div class="wrap header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon" aria-hidden="true">&#10022;</span>
+        FocusPilot
+      </a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="container">
-  <a href="privacy.html">Privacy Policy</a>
-  <a href="terms.html">Terms & Conditions</a>
-  <a href="support.html">Support</a>
-</div>
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="badge">For iPhone</p>
+        <h1>Deep work with <span>FocusPilot</span></h1>
+        <p class="subtitle">Productivity &amp; focus for work. Pomodoro timer, custom sessions, ambient sounds, and a daily log of what you finish.</p>
+        <div class="cta-row">
+          <a id="app-store-link" class="btn-primary" href="#">Download on the App Store</a>
+          <a class="btn-secondary" href="#features">See features</a>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="timer-mock">
+            <div class="timer-ring"></div>
+            <div class="timer-progress"></div>
+            <div class="timer-inner">
+              <span class="timer-time">25:00</span>
+              <span class="timer-label">FOCUS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="features" class="section">
+      <div class="wrap">
+        <h2 class="section-title">Why users love FocusPilot</h2>
+        <p class="section-desc">Everything you need to plan, time, and complete focused work—without clutter.</p>
+        <div class="features">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#9201;&#65039;</div>
+            <h3>Pomodoro Timer</h3>
+            <p>Focus, short break, and long break modes. Custom durations, multi-session sets, pause and resume, and gentle haptics.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#129668;</div>
+            <h3>Session Builder<span class="pro-tag">PRO</span></h3>
+            <p>Split your time into named tasks, set breaks between segments, use presets, and send your plan straight to the timer.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128203;</div>
+            <h3>Daily Feed<span class="pro-tag">PRO</span></h3>
+            <p>A clean chronological log of every completed focus block, grouped by day so you see when you worked.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">&#128266;</div>
+            <h3>Ambient Sounds</h3>
+            <p>Gentle Rain, Ocean Waves, Coffee Shop, Fireplace, Forest Birds, Thunderstorm, White Noise, and more.</p>
+          </article>
+        </div>
+        <div class="pro-strip">
+          <h3>FocusPilot Pro</h3>
+          <p>Unlock Session Builder, Daily Feed, and premium soundscapes. Free timer and Gentle Rain included. Subscription with optional 3-day trial.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="support" class="support">
+      <div class="wrap">
+        <h2>Support</h2>
+        <p>Questions, feedback, or help with your subscription?</p>
+        <p><a class="btn-secondary" href="support.html">Visit support page</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="support.html">Support</a>
+        <a href="#features">Features</a>
+      </div>
+      <p>&copy; <span id="year"></span> FocusPilot. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    var storeLink = document.getElementById("app-store-link");
+    if (storeLink.getAttribute("href") === "#") {
+      storeLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        alert("FocusPilot is coming soon to the App Store. Check back after launch!");
+      });
+    }
+  </script>
 </body>
 </html>
